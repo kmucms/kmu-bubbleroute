@@ -1,0 +1,50 @@
+
+
+It helps to handle web-requests in php.
+The script search nearest possible index.php. Ang gives auxilery functions.
+
+Emagine
+Web-url is: www.yourownsite.com/one/two/three/four/
+
+Webserver would search and execute this file: *rootdir*/one/two/three/four/index.php
+If the file does not exist, it will display an error.
+
+let the file system be as follows:
+
+*rootdir*
+  one
+    two
+      three
+    index.php  
+
+The script is searching the closest possible index.php and you can execute(require/include) it.
+
+*rootdir*/one/two/three/four/index.php => not found
+*rootdir*/one/two/three/index.php      => not found
+*rootdir*/one/two/index.php            => not found
+*rootdir*/one/index.php                => !found, quit search
+
+
+RequestBubble::init($rootDir); //need to be done once, can also be configured in config file
+$rb = RequestBubble::getInstance();
+
+echo $rb->getUri();              // = '/one/two/three/four/'
+echo $rb->getScript();           // = '/one/index.php' 
+echo $rb->getCurrentUri();       // = '/one' 
+echo $rb->getSlug();             // =      'two/three/four'
+echo $rb->getSlugRessort(1);     // =      'two'
+echo $rb->getRessort(1);         // =  'one'
+echo $rb->getRessort(2);         // =      'two'
+echo $rb->getRessort(10);        // = ''
+
+
+//www.yourownsite.com/one/two/test.php
+//*rootdir*/one/two/test.php file exists
+
+echo $rb->getUri();         // = '/one/two/test.php'
+echo $rb->getScript();      // = '/one/two/test.php' 
+echo $rb->getCurrentUri();  // = '/one/two/test.php' 
+echo $rb->getSlug();        // = ''
+echo $rb->getRessort(1);    // =  'one'
+echo $rb->getRessort(3);    // =          'test.php'
+echo $rb->getRessort(10);   // = ''
