@@ -1,6 +1,7 @@
 /web/weblib/**
 /phar/vendor/**
 /nbproject/**
+/phar/composer.lock
 .sass-cache/
 *.css.map
 *.sass.map

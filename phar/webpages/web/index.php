@@ -12,6 +12,6 @@ $this->setData('title', 'meintitel');
 <div class="container mb-5">
   some content <?=$this->getUrlInfo()->getRessort(1)?>
   
-  <?=$this->getComponent('test/me')?>
+  <?= ''//$this->getComponent('test/me')?>
   
 </div>
