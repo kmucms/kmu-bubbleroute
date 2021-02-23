@@ -1,0 +1,13 @@
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  RewriteCond /_runtime/web/%{REQUEST_FILENAME} -f  
+  RewriteRule ^(.*)$ /_runtime/web/$1 [END,QSA]
+
+  RewriteCond /web/%{REQUEST_FILENAME} -f  
+  RewriteRule ^(.*)$ /web/$1 [END,QSA]
+
+  RewriteCond %{REQUEST_URI} !^/index.php$ [NC]
+  RewriteRule ^(.*)$ /index.php [END,QSA]
+</IfModule> 

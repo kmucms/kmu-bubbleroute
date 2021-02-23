@@ -1,0 +1,32 @@
+
+
+## Basic
+
+web - pages have 3 parts
+
+envelope (header, footer, sometimes side-bar)
+main-spot/web (html of the main part)
+components (reuseable html-parts/templates)
+
+-> main spot 
+    -> get components
+      -> get more components
+    -> put all into envelope
+      -> get even more components
+    ->echo the page
+
+done. easy quick :P
+
+## Now with more details
+
+1. Specify the page-root-directory in the config file.
+see ....
+
+2. Create 3 subdirectories. 
+web, envelope, component
+
+3. create a file in web-subdirectory.
+
+4. echo this file.
+
+

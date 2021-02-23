@@ -1,0 +1,44 @@
+{
+    "packages": [
+        {
+            "name": "kmucms/config",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kmucms/config.git",
+                "reference": "9b3d4a93392eb7c8b41891fe613ac2e12698ee29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kmucms/config/zipball/9b3d4a93392eb7c8b41891fe613ac2e12698ee29",
+                "reference": "9b3d4a93392eb7c8b41891fe613ac2e12698ee29",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "time": "2021-02-21T19:56:54+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "kmucms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Project configuration based on class names.",
+            "support": {
+                "issues": "https://github.com/kmucms/config/issues",
+                "source": "https://github.com/kmucms/config/tree/main"
+            },
+            "install-path": "../kmucms/config"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

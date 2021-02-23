@@ -1,0 +1,26 @@
+<?xml version = "1.0" ?>
+<project name = "KMUCMS" default = "make_phar" basedir=".">
+    
+  <target name="make_phar">
+    <exec executable="php">
+      <arg value="${basedir}/scripts/makephar.php" />
+    </exec>
+  </target>
+  
+  <target name="run_server">
+    <exec executable="php">
+      <arg value="-S" />
+      <arg value="localhost:8000" />
+      <arg value="htaccess.php" />
+    </exec>
+  </target> 
+  
+  <target name="composer_autoload">
+    <exec dir="phar" executable="php">
+      <arg value="C:\Users\dimitri\AppData\Local\ComposerSetup\bin\composer.phar" />
+      <arg value="dumpautoload" />
+      <arg value="-o" />
+    </exec>
+  </target>
+
+</project>
