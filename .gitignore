@@ -1,0 +1,7 @@
+/web/weblib/**
+/phar/vendor/**
+/nbproject/**
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
