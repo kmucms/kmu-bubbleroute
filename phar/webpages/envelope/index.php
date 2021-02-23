@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS -->
-    <link href="/weblib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/weblib/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   </head>
   <body>
@@ -57,13 +57,13 @@
 
       <!-- FOOTER -->
       <footer class="container">
-        <p class="float-end"><a class="text-decoration-none btn btn-light" href="#" title="Zum Seitenanfang">&#128640;</a></p>
+        <p class="float-right"><a class="text-decoration-none btn btn-light" href="#" title="Zum Seitenanfang">&#128640;</a></p>
         <p> &middot; &middot; &middot; Guten Tag &middot; &middot; &middot;</p>
       </footer>
     </main>
 
 
-    <script src="/weblib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/weblib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
   </body>
