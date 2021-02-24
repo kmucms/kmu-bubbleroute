@@ -21,5 +21,14 @@
       <arg value="-o" />
     </exec>
   </target>
+  
+  <target name="dependencies_update">
+    <exec dir="phar" executable="composer.bat">
+      <arg value="update" />
+    </exec>
+    <exec dir="web/weblib" executable="npm.cmd">
+      <arg value="update" />
+    </exec>
+  </target>
 
 </project>
