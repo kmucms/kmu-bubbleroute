@@ -26,12 +26,16 @@ class VarTrace{
   }
 
   public function getValue(string $key){
-    return $this->values[$this->getVKey($key)] ?? null;
+    return $this->values[implode('/', $this->breadcrumb) . '/' . $key] ?? null;
   }
 
   //returns prefix:breadcrumb:keys , keys "," seperated
   public function getVKey(string $keys){
-    return $this->prefix . ':' . implode('/', $this->breadcrumb) . ':' . $key;
+    return [
+      "prefix"     => $this->prefix,
+      "breadcrumb" => $this->breadcrumb,
+      "keys"       => $keys
+    ];
   }
 
   public function setValues(array $values){
