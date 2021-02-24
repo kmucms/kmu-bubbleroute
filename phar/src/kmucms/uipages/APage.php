@@ -44,8 +44,8 @@ class APage{
     return $res;
   }
 
-  public function getUrlInfo(): \kmucms\routingbubble\BubbleRequest{
-    return \kmucms\routingbubble\BubbleRequest::getInstance();
+  public function getUrlInfo(): \kmucms\routing\BubbleRequest{
+    return \kmucms\routing\BubbleRequest::getInstance();
   }
 
 }

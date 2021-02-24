@@ -1,6 +1,10 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
 
-//$this->redirect('/admin/login');
+$this->setPageEnvelope('index');
+
+if(! (new \kmucms\adminuser\AdminUser())->isLoggedIn()){
+  $this->redirect('/admin/login');
+}
 
 echo 'admin';

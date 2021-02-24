@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 kmucms\config\Config::init(__DIR__ . '/_config.php');
@@ -13,7 +15,7 @@ if($request->hasFoundController()){
  * 
  */
 
-$request = \kmucms\routingbubble\BubbleRequest::getInstance();
+$request = \kmucms\routing\BubbleRequest::getInstance();
 
 if($request->hasFoundController()){
   (new \kmucms\uipages\PageWeb($request->getScriptId()))->echoPage();

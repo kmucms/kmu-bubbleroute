@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\routingbubble;
+namespace kmucms\routing;
 
 class BubbleRequest{
 

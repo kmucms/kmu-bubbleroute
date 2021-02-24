@@ -9,7 +9,7 @@ return [
   'global' => [
   ],
   'class'  => [
-    \kmucms\routingbubble\BubbleRequest::class => [
+    \kmucms\routing\BubbleRequest::class => [
       'webPath' => $pharPath . '/webpages/web',
     ],
     \kmucms\uipages\APage::class               => [
