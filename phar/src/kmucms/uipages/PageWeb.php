@@ -8,7 +8,7 @@ class PageWeb extends APage{
 
   private $envelopeId = '';
 
-  public function setPageEnvelope(string $envelopeId = ''){
+  public function setPageEnvelope(string $envelopeId = 'index'){
     $this->envelopeId = $envelopeId;
   }
 

@@ -23,7 +23,7 @@ $this->setData('title', 'Login');
       ],
       'password' => [
         'label'     => 'Passwort',
-        'component' => 'bootstrap/form/items/input',
+        'component' => 'bootstrap/form/items/password',
         'default'   => '',
       ],
     ],

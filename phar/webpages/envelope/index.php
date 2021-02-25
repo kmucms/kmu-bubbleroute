@@ -22,6 +22,7 @@
 
     <!-- CSS -->
     <link href="/weblib/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/weblib/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
   </head>
   <body>
@@ -29,7 +30,7 @@
     <nav>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
+          <a href="/" class="navbar-brand d-flex align-items-center">
             <img src="/weblib/kmucms/cmsmedia/favicon/favicon.png" style="max-width: 32px; max-height: 32px;"/>
             <strong>&nbsp;&nbsp;&nbsp;Home</strong>
           </a>
@@ -57,7 +58,7 @@
 
       <!-- FOOTER -->
       <footer class="container">
-        <p class="float-right"><a class="text-decoration-none btn btn-light" href="#" title="Zum Seitenanfang">&#128640;</a></p>
+        <p class="float-right"><a class="text-decoration-none btn btn-light" href="#" title="Zum Seitenanfang"><i class="bi-triangle-fill"></i></a></p>
         <p> &middot; &middot; &middot; Guten Tag &middot; &middot; &middot;</p>
       </footer>
     </main>
