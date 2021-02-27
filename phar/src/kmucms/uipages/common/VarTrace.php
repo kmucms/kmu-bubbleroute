@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\uipages;
+namespace kmucms\uipages\common;
 
 class VarTrace{
 

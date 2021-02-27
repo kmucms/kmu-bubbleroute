@@ -2,7 +2,6 @@
   "name": "kmucms/easy",
   "description": "Description of project easy.",
 
-
   "autoload": {
     "psr-4": {
       "": [
@@ -10,9 +9,9 @@
       ]
     }
   },
-  
-  "require":{
-    "kmucms/config":"@dev"
-  }
 
+  "require": {
+    "symfony/yaml": "*",
+    "kmucms/config": "@dev"
+  }
 }

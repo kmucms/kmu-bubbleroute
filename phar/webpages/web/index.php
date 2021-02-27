@@ -10,7 +10,7 @@ $this->setData('title', 'meintitel');
 <?= ''// $this->getVarWidget('krabbe', 'my/widget'); ?>
 
 <div class="container mb-5">
-  some content <?=$this->getUrlInfo()->getRessort(1)?>
+  some content <?=$this->urlInfo()->getRessort(1)?>
   
   <?= ''//$this->getComponent('test/me')?>
   

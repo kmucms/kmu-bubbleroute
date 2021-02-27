@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\uipages;
+namespace kmucms\uipages\common;
 
 class APage{
 
@@ -24,14 +24,14 @@ class APage{
   }
 
   public function getComponent(string $componentId, array $data = []): string{
-    $component = new PageComponent($componentId, $data);
+    $component = new \kmucms\uipages\PageComponent($componentId, $data);
     return $component->getHtml();
   }
 
   public function getComponents(array $componentIdAnddata = []): string{
     $res = [];
     foreach($componentIdAnddata as $componentId => $data){
-      $component = new PageComponent($componentId, $data);
+      $component = new \kmucms\uipages\PageComponent($componentId, $data);
       $res[]     = $component->getHtml();
     }
     return implode('', $res);
@@ -44,8 +44,12 @@ class APage{
     return $res;
   }
 
-  public function getUrlInfo(): \kmucms\routing\BubbleRequest{
+  public function urlInfo(): \kmucms\routing\BubbleRequest{
     return \kmucms\routing\BubbleRequest::getInstance();
+  }
+
+  public function weblib(): Weblib{
+    return Weblib::getInstance();
   }
 
 }

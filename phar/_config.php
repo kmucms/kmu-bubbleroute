@@ -12,7 +12,7 @@ return [
     \kmucms\routing\BubbleRequest::class => [
       'webPath' => $pharPath . '/webpages/web',
     ],
-    \kmucms\uipages\APage::class               => [
+    \kmucms\uipages\common\APage::class               => [
       'templatePath' => $pharPath . '/webpages',
     ],
     kmucms\adminuser\AdminUser::class          => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\uipages;
+namespace kmucms\uipages\common;
 
 trait TPageData{
 
@@ -12,6 +12,10 @@ trait TPageData{
 
   public function getData($key){
     return $this->data[$key] ?? null;
+  }
+  
+  public function getDataAll():array{
+    return $this->data;
   }
 
 }

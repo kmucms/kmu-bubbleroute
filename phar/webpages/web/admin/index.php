@@ -12,11 +12,11 @@ if(!$adminUser->isLoggedIn()){
 
 
 <div class="container">
-  <?=
-  $this->getComponent('bootstrap/breadcrumb', [
-    'Administratiosnbereich' => '/admin',
-    'DataPool'               => '/admin/datapool'
-  ])
+  <?= ''
+//  $this->getComponent('bootstrap/breadcrumb', [
+//    'Administratiosnbereich' => '/admin',
+//    'DataPool'               => '/admin/datapool'
+//  ])
   ?>
 
 

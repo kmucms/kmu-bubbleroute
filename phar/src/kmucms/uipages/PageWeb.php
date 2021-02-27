@@ -2,7 +2,7 @@
 
 namespace kmucms\uipages;
 
-class PageWeb extends APage{
+class PageWeb extends common\APage{
 
   const type = 'web';
 
@@ -45,9 +45,11 @@ class PageWeb extends APage{
         $js   .= is_file($file) ? file_get_contents($file) : '';
       }
     }
-
-    $res = str_replace('</head>', "<style>$css</style></head>", $res);
-    $res = str_replace('</body>', "$webTemplates<script>$js</script></body>", $res);
+    $weblibCss = $this->weblib()->getCssHtml();
+    $weblibJs = $this->weblib()->getJsHtml();
+    
+    $res = str_replace('</head>', "$weblibCss<style>$css</style></head>", $res);
+    $res = str_replace('</body>', "$webTemplates $weblibJs<script>$js</script></body>", $res);
     return $res;
   }
 

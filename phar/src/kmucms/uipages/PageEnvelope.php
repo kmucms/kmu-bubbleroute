@@ -2,7 +2,7 @@
 
 namespace kmucms\uipages;
 
-class PageEnvelope extends APage{
+class PageEnvelope extends common\APage{
 
   const type                      = 'envelope';
 

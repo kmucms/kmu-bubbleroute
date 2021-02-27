@@ -64,6 +64,7 @@
     </main>
 
 
+    <script src="/weblib/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/weblib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
