@@ -1,0 +1,11 @@
+DataPool
+
+Basic idea is to create items description. 
+Then derive other tasks from the description like manage items, edit items.
+An item can be a product, an event, a page, a news, an address, ... .
+
+items description
+  => create db tables
+  => create items overview
+  => create item edit 
+  => create frontendviews (for people who should not edit the items)
