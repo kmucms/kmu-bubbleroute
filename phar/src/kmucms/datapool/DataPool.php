@@ -4,16 +4,28 @@ namespace kmucms\datapool;
 
 class DataPool{
 
-  public function getModel(){
-    return $model = \Symfony\Component\Yaml\Yaml::parseFile(__DIR__ . '/default_model.yml');
+  /**
+   * 
+   * @var \kmucms\files\FilesRuntimeData
+   */
+  private $filesRepo;
+
+  public function getModel(): array{
+    if(!$this->filesRepo->isFile('description.json')){
+      $this->filesRepo->setFileContent(
+        'description.json',
+        json_encode(\Symfony\Component\Yaml\Yaml::parseFile(__DIR__ . '/default_model.yml'))
+      );
+    }
+    return json_decode($this->filesRepo->getFileContent('description.json'), true);
   }
 
   public function setModel(array $meta){
-    //todo: code
+    $this->filesRepo->setFileContent('description.json', json_encode($meta));
   }
 
   public function getPropertyTypes(){
-    $types = explode(',', 'string,checkbox,textarea');
+    $types = \kmucms\config\Config::getInstanceClass(self::class)->getConf('propertyTypes');
     return array_combine($types, $types);
   }
 
@@ -32,7 +44,7 @@ class DataPool{
   }
 
   private function __construct(){
-    
+    $this->filesRepo = new \kmucms\files\FilesRuntimeData(self::class);
   }
 
   private function __clone(){

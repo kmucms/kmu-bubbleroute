@@ -2,6 +2,9 @@
 
 namespace kmucms\uipages\common;
 
+/**
+ * handle js and css library links
+ */
 class Weblib{
 
   private $js     = array();
@@ -37,7 +40,7 @@ class Weblib{
     $result = "";
     foreach($js as $v){
       $result .= '<script src="' . htmlentities($v) . '" '
-        //. 'type="text/javascript"'
+        . 'type="text/javascript"'
         . '></script>';
     }
     return $result;

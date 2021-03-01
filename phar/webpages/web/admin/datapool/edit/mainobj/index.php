@@ -10,7 +10,7 @@ $this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
 
   <?=
   $this->getComponent('bootstrap/breadcrumb', [
-    'crumb' => [
+    'crumb'   => [
       'Admin'    => '/admin',
       'Datapool' => '/admin/datapool',
     ],
@@ -29,13 +29,20 @@ $this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
         <label><input v-model="editor_showProp" type="checkbox"/> Eigenschaften anzeigen</label>
       </div>
       <div class="col-auto">
+        <button v-on:click="compile" class="btn btn-primary mb-2">Kompilieren</button>
         <button v-on:click="saveAll" class="btn btn-success mb-2">Speichern</button>
       </div>
     </div>
 
     <div  style="overflow: auto;" class="bg-white border rounded">
-      <div class="p-2  m-2 border bg-secondary text-white rounded" v-for="(obj,objKey) in modeldata.model.objects">
-        <div><label><input v-model="obj.editor_edit"  type="checkbox"/> {{obj.name}}</label></div>
+      <div v-for="(obj,objKey) in modeldata.model.objects" class="p-2  m-2 border bg-secondary text-white rounded">
+        <div><label><input v-model="obj.editor_edit"  type="checkbox"/> {{obj.name}}</label>
+          <span class="float-right">
+            <i v-on:click="moveItem(modeldata.model.objects,objKey,objKey-1)" v-if="objKey>0" class="bi-arrow-up p-1"></i>
+            <i v-on:click="moveItem(modeldata.model.objects,objKey,objKey+1)" v-if="objKey<(modeldata.model.objects.length-1)" class="bi-arrow-down p-1"></i>
+            <i v-on:click="deleteItem(modeldata.model.objects,objKey)" class="bi-trash p-1"></i>
+          </span>
+        </div>
         <div v-if="obj.editor_edit">
           <div>
             name<br/>
@@ -57,7 +64,13 @@ $this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
                     </option>
                   </select>
                 </td>
+                <td>
+                  <i v-on:click="moveItem(obj.properties,pkey,pkey-1)" v-if="pkey>0" class="bi-arrow-up p-1"></i><i v-if="pkey==0" class="bi-record p-1"></i>
+                  <i v-on:click="moveItem(obj.properties,pkey,pkey+1)" v-if="pkey<(obj.properties.length-1)" class="bi-arrow-down p-1"></i><i v-if="pkey==(obj.properties.length-1)" class="bi-record p-1"></i>
+                  <i v-on:click="deleteItem(obj.properties,pkey)" class="bi-trash p-1"></i>
+                </td>
               </tr>
+              <tr><td colspan="4"><input  v-on:keyup.13="addObjProperty(obj.properties,$event.target.value);$event.target.value=''" /><i class="bi-plus"></i></td></tr>
             </table>
           </div>
         </div>    <!-- EDIT NODE -->
@@ -87,6 +100,12 @@ $this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
 
   <script>
     document.addEventListener("DOMContentLoaded", function (event) {
+
+      Array.prototype.move = function (from, to) {
+        this.splice(to, 0, this.splice(from, 1)[0]);
+        return this;
+      };
+
       var app = new Vue({
         el: '#app',
         data: {
@@ -97,23 +116,49 @@ $this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
         },
         methods: {
           addObj: function () {
-            if (this.editor_newname != '' && !this.modeldata.model.objects.hasOwnProperty(this.editor_newname)) {
-              this.$set(this.modeldata.model.objects, this.editor_newname, {'label': this.editor_newname, name: this.editor_newname});
+            function hasProperty(arr, name) {
+              for (let x in arr) {
+                if (arr[x].name == name) {
+                  return true;
+                }
+              }
+              return false;
+            }
+            if (this.editor_newname != '' && !hasProperty(this.modeldata.model.objects, this.editor_newname)) {//this.modeldata.model.objects.hasOwnProperty(this.editor_newname)) {
+              //this.$set(this.modeldata.model.objects, this.editor_newname, {'label': this.editor_newname, name: this.editor_newname});
+              this.modeldata.model.objects.push({'label': this.editor_newname, name: this.editor_newname, properties: []});
             }
             this.editor_newname = '';
           },
           saveAll() {
-            alert(JSON.stringify(this.modeldata));
+            $.post('/admin/datapool/edit/savemodel/', {'model': JSON.stringify(this.modeldata)});
+          },
+          compile() {
+            $.post('/admin/datapool/edit/compilemodel/', {'model': JSON.stringify(this.modeldata)});
+          },
+          deleteItem(arr, index) {
+            this.$delete(arr, index);
+          },
+          moveItem(arr, from, to) {
+            arr.move(from, to);
+          },
+          addObjProperty(arrProperties, name) {
+            arrProperties.push({'name': name, 'label': name});
           }
         },
         created: function () {
           let div = document.getElementById('data');
           let obj = JSON.parse(div.dataset.json);
           function nameFromKey(obj) {
+            if (Array.isArray(obj)) {
+              return obj;
+            }
+            let arr = [];
             for (let x in obj) {
               obj[x].name = x;
+              arr.push(obj[x]);
             }
-            return obj;
+            return arr;
           }
           obj.model.objects = nameFromKey(obj.model.objects);
           for (let x in obj.model.objects) {
