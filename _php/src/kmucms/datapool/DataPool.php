@@ -25,7 +25,7 @@ class DataPool{
   }
 
   public function getPropertyTypes(){
-    $types = \kmucms\config\Config::getInstanceClass(self::class)->getConf('propertyTypes');
+    $types = \kmucms\config\Config::getInstanceByClass(self::class)->getConf('propertyTypes');
     return array_combine($types, $types);
   }
 

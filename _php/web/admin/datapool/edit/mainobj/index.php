@@ -3,7 +3,7 @@
 $this->setPageEnvelope();
 
 $this->setData('title', 'DataPool: Hauptobjekte bearbeiten');
-$this->weblib()->addJs('/weblib/node_modules/vue/dist/vue.min.js');
+$this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
 ?>
 
 <div class="container">

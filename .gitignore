@@ -1,8 +1,9 @@
-/_runtime/**
-/web/weblib/**
-/phar/vendor/**
 /nbproject/**
-/phar/composer.lock
+/_runtime/**
+/_files/**
+!/_files/web/files/package.json
+/_php/vendor/**
+/_php/composer.lock
 .sass-cache/
 *.css.map
 *.sass.map

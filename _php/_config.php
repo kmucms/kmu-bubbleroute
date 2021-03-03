@@ -2,7 +2,7 @@
 
 //class => [values]
 
-$pharPath = __DIR__;
+$phpPath  = __DIR__;
 $rootPath = dirname(__DIR__);
 
 return [
@@ -10,10 +10,14 @@ return [
   ],
   'class'  => [
     \kmucms\routing\BubbleRequest::class => [
-      'webPath' => $pharPath . '/webpages/web',
+      'webPath' => $phpPath . '/web',
     ],
     \kmucms\uipages\common\APage::class  => [
-      'templatePath' => $pharPath . '/webpages',
+      'templatePath' => [
+        'web'       => $phpPath . '/web',
+        'envelope'  => $phpPath . '/webEnvelope',
+        'component' => $phpPath . '/webComponent',
+      ],
     ],
     kmucms\adminuser\AdminUser::class    => [
       'name'     => 'admin',
@@ -23,8 +27,8 @@ return [
       'pathRuntimeData' => $rootPath . '/_runtime/data/class',
     ],
     kmucms\files\FilesRuntimeWeb::class  => [
-      'pathRuntimeWeb' => $rootPath . '/_runtime/web/file/class',
-      'webUriPrefix'   => $rootPath . '/file/class',
+      'pathRuntimeWeb' => $rootPath . '/_runtime/web/runtime/class',
+      'webUriPrefix'   => '/runtime/class',
     ],
     \kmucms\datapool\DataPool::class     => [
       'propertyTypes' => [

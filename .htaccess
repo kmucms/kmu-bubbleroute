@@ -3,9 +3,11 @@
   RewriteEngine on
 
   RewriteCond /_runtime/web/%{REQUEST_FILENAME} -f  
+  RewriteCond %{REQUEST_FILENAME} !\.php$
   RewriteRule ^(.*)$ /_runtime/web/$1 [END,QSA]
 
   RewriteCond /web/%{REQUEST_FILENAME} -f  
+  RewriteCond %{REQUEST_FILENAME} !\.php$
   RewriteRule ^(.*)$ /web/$1 [END,QSA]
 
   RewriteCond %{REQUEST_URI} !^/index.php$ [NC]

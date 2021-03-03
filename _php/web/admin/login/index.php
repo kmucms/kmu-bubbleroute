@@ -1,6 +1,5 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
-
 $item = $_REQUEST['item'] ?? [];
 if(($_REQUEST['submitButton'] ?? 0) == 'ok'){
   if((new kmucms\adminuser\AdminUser())->doLogin($item['name'], $item['password'])){

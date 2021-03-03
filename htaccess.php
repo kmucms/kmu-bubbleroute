@@ -31,7 +31,7 @@ if($ext != 'php'){
   if(is_file($file)){
     htaccessEchoFile($file);
   }
-  $file = $dir . '/web' . $url;
+  $file = $dir . '/_files/web' . $url;
   if(is_file($file)){
     htaccessEchoFile($file);
   }

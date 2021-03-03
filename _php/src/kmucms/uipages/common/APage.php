@@ -10,7 +10,7 @@ class APage{
 
   protected $templateId             = '';
   protected static $usedTemplateIds = [];
-  protected $templatePath           = '';
+  protected $templatePath             = '';
 
   /** @var \kmucms\config\Config */
   private $config;
@@ -19,9 +19,11 @@ class APage{
     $this->templateId                                   = $templateId;
     $this->data                                         = $data;
     static::$usedTemplateIds[static::type][$templateId] = 1;
-    $this->config                                       = \kmucms\config\Config::getInstanceClass(self::class);
+    $this->config                                       = \kmucms\config\Config::getInstanceByClass(self::class);
     $this->templatePath                                 = $this->config->getConf('templatePath');
   }
+
+
 
   public function getComponent(string $componentId, array $data = []): string{
     $component = new \kmucms\uipages\PageComponent($componentId, $data);
@@ -39,7 +41,7 @@ class APage{
 
   public function getHtml(){
     ob_start();
-    require $this->templatePath . '/' . static::type . '/' . $this->templateId . '.php';
+    require $this->templatePath[static::type] . '/' . $this->templateId . '.php';
     $res = ob_get_clean();
     return $res;
   }

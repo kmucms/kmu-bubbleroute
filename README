@@ -13,11 +13,12 @@ needed:
 pick your console
 git clone https://github.com/kmucms/kmu-cms.git
 cd kmu-cms
-cd phar
+cd _php
 composer install
 cd ..
+cd _files
 cd web
-cd weblib
+cd files
 npm update
 cd ..
 cd ..

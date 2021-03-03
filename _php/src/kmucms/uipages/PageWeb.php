@@ -33,21 +33,20 @@ class PageWeb extends common\APage{
     $css          = '';
     $js           = '';
     $webTemplates = '';
-    $pagePath     = $this->templatePath;
     foreach($classes as $class){
       /** @var \kmucms\uipages\APage $class */
       foreach(array_keys($class::$usedTemplateIds[$class::type] ?? []) as $templateId){
-        $file = $pagePath . '/' . $class::type . '/' . $templateId . '.css';
+        $file = $this->templatePath[static::type] . '/' . $templateId . '.css';
         $css  .= is_file($file) ? file_get_contents($file) : '';
-        $file = $pagePath . '/' . $class::type . '/' . $templateId . '.js';
+        $file = $this->templatePath[static::type] . '/' . $templateId . '.js';
         $js   .= is_file($file) ? file_get_contents($file) : '';
-        $file = $pagePath . '/' . $class::type . '/' . $templateId . '.web.php';
+        $file = $this->templatePath[static::type] . '/' . $templateId . '.web.php';
         $js   .= is_file($file) ? file_get_contents($file) : '';
       }
     }
     $weblibCss = $this->weblib()->getCssHtml();
-    $weblibJs = $this->weblib()->getJsHtml();
-    
+    $weblibJs  = $this->weblib()->getJsHtml();
+
     $res = str_replace('</head>', "$weblibCss<style>$css</style></head>", $res);
     $res = str_replace('</body>', "$webTemplates $weblibJs<script>$js</script></body>", $res);
     return $res;

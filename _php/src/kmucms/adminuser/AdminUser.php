@@ -11,7 +11,7 @@ class AdminUser{
   private $config;
 
   public function __construct(){
-    $this->config = \kmucms\config\Config::getInstanceClass(self::class);
+    $this->config = \kmucms\config\Config::getInstanceByClass(self::class);
   }
 
   public function doLogin(string $name, string $password){

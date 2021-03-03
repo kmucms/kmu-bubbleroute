@@ -21,8 +21,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS -->
-    <link href="/weblib/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/weblib/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/files/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/files/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
   </head>
   <body>
@@ -31,7 +31,7 @@
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
           <a href="/" class="navbar-brand d-flex align-items-center">
-            <img src="/weblib/kmucms/cmsmedia/favicon/favicon.png" style="max-width: 32px; max-height: 32px;"/>
+            <img src="/files/kmucms/cmsmedia/favicon/favicon.png" style="max-width: 32px; max-height: 32px;"/>
             <strong>&nbsp;&nbsp;&nbsp;Home</strong>
           </a>
         </div>
@@ -64,8 +64,8 @@
     </main>
 
 
-    <script src="/weblib/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/weblib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/files/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/files/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
   </body>
