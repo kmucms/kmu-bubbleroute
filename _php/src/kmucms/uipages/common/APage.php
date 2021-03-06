@@ -46,11 +46,11 @@ class APage{
     return $res;
   }
 
-  public function urlInfo(): \kmucms\routing\BubbleRequest{
+  public function getUrlInfo(): \kmucms\routing\BubbleRequest{
     return \kmucms\routing\BubbleRequest::getInstance();
   }
 
-  public function weblib(): Weblib{
+  public function getWeblib(): Weblib{
     return Weblib::getInstance();
   }
 

@@ -29,10 +29,23 @@ if(!$adminUser->isLoggedIn()){
 
   <div class="list-group mb-3">
     <?php foreach(\kmucms\datapool\DataPool::getInstance()->getModel()['model']['objects'] as $obj): ?>
-      <a href="/admin/datapool" class="list-group-item list-group-item-action">
-        <i class="bi-diagram-3 mr-2"></i> <?=$obj['label']?>
-      </a>
+      <?php if($obj['attributes']['main']): ?>
+        <a href="/admin/datapool/table/<?= $obj['name'] ?>" class="list-group-item list-group-item-action">
+          <i class="bi-square-fill mr-2"></i> <?= $obj['label'] ?>
+        </a>
+      <?php endif; ?>
     <?php endforeach; ?>
   </div>
+
+  <div class="list-group mb-3">
+    <?php foreach(\kmucms\datapool\DataPool::getInstance()->getModel()['model']['objects'] as $obj): ?>
+      <?php if(!$obj['attributes']['main']): ?>
+        <a href="/admin/datapool/table/<?= $obj['name'] ?>" class="list-group-item list-group-item-action">
+          <i class="bi-square mr-2"></i> <?= $obj['label'] ?>
+        </a>
+      <?php endif; ?>
+    <?php endforeach; ?>
+  </div>
+
 
 </div>

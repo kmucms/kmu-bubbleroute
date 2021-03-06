@@ -2,8 +2,8 @@
 /** @var \kmucms\uipages\PageWeb $this */
 $this->setPageEnvelope();
 
-$this->setData('title', 'DataPool: Hauptobjekte bearbeiten');
-$this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
+$this->setData('title', 'DataPool: Objekte definieren');
+$this->getWeblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
 ?>
 
 <div class="container">
@@ -26,7 +26,10 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
   <div id="app">
     <div class="row align-items-center">
       <div class="col-auto" style="flex-grow: 1">
-        <label><input v-model="editor_showProp" type="checkbox"/> Eigenschaften anzeigen</label>
+        <label><input v-model="editor_showAttr" type="checkbox"/> Objekt-Art</label><br/>
+        <label><input v-model="editor_showProp" type="checkbox"/> Objekt-Eigenschaften</label><br/>
+        <label><input v-model="editor_showMain" type="checkbox"/> Seitenobjekte</label><br/>
+        <label><input v-model="editor_showSubMain" type="checkbox"/> Hilfsobjekte</label><br/>
       </div>
       <div class="col-auto">
         <button v-on:click="compile" class="btn btn-primary mb-2">Kompilieren</button>
@@ -35,8 +38,14 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
     </div>
 
     <div  style="overflow: auto;" class="bg-white border rounded">
-      <div v-for="(obj,objKey) in modeldata.model.objects" class="p-2  m-2 border bg-secondary text-white rounded">
-        <div><label><input v-model="obj.editor_edit"  type="checkbox"/> {{obj.name}}</label>
+      <div 
+        v-for="(obj,objKey) in modeldata.model.objects" 
+        v-if="obj.attributes.main && editor_showMain || !obj.attributes.main && editor_showSubMain" 
+        class="p-2  m-2 border  text-white rounded"
+        v-bind:class=" obj.attributes.main ? 'bg-dark' : 'bg-secondary'"
+        >
+        <div>
+          <label><input v-model="obj.editor_edit"  type="checkbox"/> {{obj.name}}</label>
           <span class="float-right">
             <i v-on:click="moveItem(modeldata.model.objects,objKey,objKey-1)" v-if="objKey>0" class="bi-arrow-up p-1"></i>
             <i v-on:click="moveItem(modeldata.model.objects,objKey,objKey+1)" v-if="objKey<(modeldata.model.objects.length-1)" class="bi-arrow-down p-1"></i>
@@ -72,6 +81,9 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
               </tr>
               <tr><td colspan="4"><input  v-on:keyup.13="addObjProperty(obj.properties,$event.target.value);$event.target.value=''" /><i class="bi-plus"></i></td></tr>
             </table>
+            <div v-if="editor_showAttr" class="ml-3">
+              <label><input type="checkbox" v-model="obj.attributes.main" /> Seitenobjekt</label>
+            </div>
           </div>
         </div>    <!-- EDIT NODE -->
         <div v-else>
@@ -79,6 +91,11 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
           <ul v-if="editor_showProp">
             <li v-for="(property,pkey) in obj.properties">
               {{property.label}}
+            </li>
+          </ul>
+          <ul v-if="editor_showAttr">
+            <li v-for="(property,pkey) in obj.attributes" v-if="property" style="list-style-type: square;">
+              {{pkey}}
             </li>
           </ul>
         </div>
@@ -111,6 +128,9 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
         data: {
           editor_newname: '',
           editor_showProp: false,
+          editor_showAttr: false,
+          editor_showMain: true,
+          editor_showSubMain: false,
           editor_propertyTypes: {}, //to be loaded
           modeldata: {}  //to be loaded
         },
@@ -126,12 +146,24 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
             }
             if (this.editor_newname != '' && !hasProperty(this.modeldata.model.objects, this.editor_newname)) {//this.modeldata.model.objects.hasOwnProperty(this.editor_newname)) {
               //this.$set(this.modeldata.model.objects, this.editor_newname, {'label': this.editor_newname, name: this.editor_newname});
-              this.modeldata.model.objects.push({'label': this.editor_newname, name: this.editor_newname, properties: []});
+              this.modeldata.model.objects.push({'label': this.editor_newname, name: this.editor_newname, properties: [], attributes: {}});
             }
             this.editor_newname = '';
           },
           saveAll() {
-            $.post('/admin/datapool/edit/savemodel/', {'model': JSON.stringify(this.modeldata)});
+            let model = this.modeldata;
+            let objects = model.model.objects;
+
+            model.model.objects = {};
+            for (x in objects) {
+              let props = objects[x].properties;
+              objects[x].properties = {}
+              for (y in props) {
+                objects[x].properties[props[y].name] = props[y];
+              }
+              model.model.objects[objects[x].name] = objects[x];
+            }
+            $.post('/admin/datapool/edit/savemodel/', {'model': JSON.stringify(model)});
           },
           compile() {
             $.post('/admin/datapool/edit/compilemodel/', {'model': JSON.stringify(this.modeldata)});
@@ -163,6 +195,9 @@ $this->weblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
           obj.model.objects = nameFromKey(obj.model.objects);
           for (let x in obj.model.objects) {
             obj.model.objects[x].properties = nameFromKey(obj.model.objects[x].properties);
+            if (!obj.model.objects[x].hasOwnProperty('attributes')) {
+              obj.model.objects[x]['attributes'] = {'main': false};
+            }
           }
           this.modeldata = obj;
 

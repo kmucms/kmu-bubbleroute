@@ -9,19 +9,31 @@ class DataPool{
    * @var \kmucms\files\FilesRuntimeData
    */
   private $filesRepo;
+  private $model;
 
   public function getModel(): array{
-    if(!$this->filesRepo->isFile('description.json')){
-      $this->filesRepo->setFileContent(
-        'description.json',
-        json_encode(\Symfony\Component\Yaml\Yaml::parseFile(__DIR__ . '/default_model.yml'))
-      );
+    if(!isset($this->model)){
+      if(!$this->filesRepo->isFile('description.json')){
+        $this->filesRepo->setFileContent(
+          'description.json',
+          json_encode(\Symfony\Component\Yaml\Yaml::parseFile(__DIR__ . '/default_model.yml'))
+        );
+      }
+      $this->model = json_decode($this->filesRepo->getFileContent('description.json'), true);
     }
-    return json_decode($this->filesRepo->getFileContent('description.json'), true);
+    return $this->model;
   }
 
   public function setModel(array $meta){
     $this->filesRepo->setFileContent('description.json', json_encode($meta));
+  }
+
+  public function hasObject(string $name): bool{
+    return isset($this->getModel()['model']['objects'][$name]);
+  }
+  
+  public function getObjectModel($objectName){
+    return $this->getModel()['model']['objects'][$objectName]??[];
   }
 
   public function getPropertyTypes(){

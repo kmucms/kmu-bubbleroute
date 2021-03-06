@@ -44,8 +44,8 @@ class PageWeb extends common\APage{
         $js   .= is_file($file) ? file_get_contents($file) : '';
       }
     }
-    $weblibCss = $this->weblib()->getCssHtml();
-    $weblibJs  = $this->weblib()->getJsHtml();
+    $weblibCss = $this->getWeblib()->getCssHtml();
+    $weblibJs  = $this->getWeblib()->getJsHtml();
 
     $res = str_replace('</head>', "$weblibCss<style>$css</style></head>", $res);
     $res = str_replace('</body>', "$webTemplates $weblibJs<script>$js</script></body>", $res);
