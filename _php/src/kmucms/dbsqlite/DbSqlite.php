@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\sqlite;
+namespace kmucms\dbsqlite;
 
 class DbSqlite{
 
@@ -28,7 +28,7 @@ class DbSqlite{
     return $this->db->lastInsertRowID();
   }
 
-  public function setRow($table, $id, $data){
+  public function setRow(string $table, int $id, array $data): int{
     $data['id'] = $id;
     $this->beautifyAttributes($data);
     $key        = [];
@@ -41,7 +41,7 @@ class DbSqlite{
     return $id;
   }
 
-  public function updateRow($table, $id, $data){
+  public function updateRow(string $table, int $id, array $data){
     return $this->setRow($table, $id, $data);
   }
 
@@ -53,23 +53,26 @@ class DbSqlite{
     unset($data['id']);
     return $this->addRow($table, $data);
   }
-
-  public function updateRows($table, $data, $condition, $conditionData){
-    
+  
+  public function addOrUpdateRow(string $table, int $id, array $data){
+    return $this->updateOrAddRow($table, $id, $data);
   }
 
-  public function removeRow($table, $id){
+  /*
+    public function updateRows($table, $data, $condition, $conditionData){
+    //todo: code updateRows
+    }
+   * 
+   */
+
+  public function removeRow(string $table, int $id): void{
     $sql = "delete from " . $table . " where id=:id";
     $this->doExecute($sql, ['id' => $id]);
   }
 
-  public function removeRowsByCondition($table, $condition, $conditionData){
+  public function removeRowsByCondition(string $table, string $condition, array $conditionData): void{
     $sql = "delete from " . $table . " where " . $condition;
     $this->doExecute($sql, $conditionData);
-  }
-
-  public function execute($sql, $data){
-    
   }
 
   public function getRowById(string $table, int $id): array{
@@ -121,13 +124,13 @@ class DbSqlite{
     return $res;
   }
 
-  public function getRowsCount($table, $condition = '', $data = []){
+  public function getRowsCount(string $table, string $condition = '', array $data = []): int{
     $condition = $condition == '' ? '' : ' where ' . $condition;
     $count     = $this->getRows("SELECT COUNT(*) as count FROM $table $condition", $data);
     return $count[0]['count'];
   }
 
-  public function getRows($sql, $data = []){
+  public function getRows(string $sql, array $data = []): array{
 
     $stmt = $this->db->prepare($sql);
     foreach($data as $k => $v){
@@ -146,7 +149,7 @@ class DbSqlite{
     return $res;
   }
 
-  public function getRow($sql, $data = []){
+  public function getRow(string $sql, array $data = []){
 
     $stmt = $this->db->prepare($sql);
     foreach($data as $k => $v){
@@ -161,17 +164,15 @@ class DbSqlite{
 
   private $file  = '';
   private $db;
-  private $isNew = false;
 
-  public function isNew(): bool{
-    return $this->isNew; //schnapsidee??
-  }
-
-  public function __construct($path){
+  public function __construct(string $path){
     $this->file = $path;
     if(!is_file($path)){
-      \waleri\repository\repoPlain\files\FilesOs::getInstance()->setFileContent($path, '');
-      $this->isNew = true;
+      $dir = dirname($path);
+      if(!is_dir($dir)){
+        mkdir($dir . '/', 0777, TRUE);
+      }
+      file_put_contents($path, '');
     }
     $this->db = new \SQLite3($path);
   }
@@ -180,8 +181,7 @@ class DbSqlite{
     return $this->file;
   }
 
-  private function doExecute($sql, $params = []){
-    //var_dump($sql); exit;
+  public function doExecute(string $sql, array $params = []){
     $stmt = $this->db->prepare($sql);
     foreach($params as $k => $v){
       $stmt->bindValue(':' . $k, $v);
@@ -197,7 +197,7 @@ class DbSqlite{
     }
   }
 
-  public function getNextId($table){
+  public function getNextId(string $table):int{
     $sql    = "select max(id) as id from " . $table;
     $nextId = intval($this->getRows($sql)['id']);
     return $nextId + 1;

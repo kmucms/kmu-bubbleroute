@@ -1,66 +1,68 @@
 <?php
 
-namespace kmucms\sqlite;
+namespace kmucms\dbsqlite;
 
 class DbSchemaSqlite{
 
-  private bool $errors       = false;
-  private string $errorMessage = '';
+  //private bool $errors       = false;
+  //private string $errorMessage = '';
   private string $dbFile;
   private array $dbSchema;
-  private auxiliaryPrivate\DbStructureSqlite $dbStructure;
+  private auxiliaryPrivate\DbStructureSqlite $dbs;
+  private DbSqlite $db;
 
   public function __construct(string $dbFile, array $dbSchema){
-    $this->dbFile      = $dbFile;
-    $this->dbSchema    = $dbSchema;
-    $this->dbStructure = new auxiliaryPrivate\DbStructureSqlite($dbFile);
-    $this->db          = new DbSqlite($dbFile);
+    $this->dbFile   = $dbFile;
+    $this->dbSchema = $dbSchema;
+    $this->dbs      = new auxiliaryPrivate\DbStructureSqlite($dbFile);
+    $this->db       = new DbSqlite($dbFile);
   }
 
-  public function update(){
-    $db = new DbSqlite($this->dbFile);
-    if(!in_array('db_schema_info', $this->dbStructure->getTableNames())){ //is new
+  public function update(): void{
+    if(!in_array('db_schema_info', $this->dbs->getTableNames())){ //is new
       $schemaInfoTable = $this->getTableSql('db_schema_info', ['columns' => [['name' => 'k'], ['name' => 'v']]]);
-      $this->dbStructure->doExecute($schemaInfoTable);
-      $db->addRow('db_schema_info', ['k' => 'version', 'v' => '0']);
+      $this->dbs->doExecute($schemaInfoTable);
+      $this->db->addRow('db_schema_info', ['k' => 'version', 'v' => '0']);
     }
-    if(intval($this->dbSchema['version']) <= intval($db->getRow("select v from db_schema_info where k='version'")['v'])){//version in updatearray is smaller than current db version
+    $dbVersion = intval($this->db->getRow("select v from db_schema_info where k='version'")['v']);
+    if(intval($this->dbSchema['version']) <= $dbVersion){
+      //version in updatearray is smaller than current db version, nothing to do
       return;
     }
     $this->renameTablesAndColumns();
     foreach($this->dbSchema['tables'] as $table){
-      if(in_array($table['name'], $this->dbStructure->getTableNames())){//does table exist
-        if(!$this->isTableSameAsExistent($table)){
+      if(in_array($table['name'], $this->dbs->getTableNames())){//does table exist
+        if(!$this->isTableAsDescribed($table)){
           //create new table
           $tempTableName = $this->getTempTableName();
           $newTableSql   = $this->getTableSql($tempTableName, $table);
-          $this->dbStructure->doExecute($newTableSql);
+          $this->dbs->doExecute($newTableSql);
           //copy data 
           $this->copyData($table['name'], $tempTableName);
-          $this->dbStructure->removeTable($table['name']);
-          $this->dbStructure->renameTable($tempTableName, $table['name']);
+          $this->dbs->removeTable($table['name']);
+          $this->dbs->renameTable($tempTableName, $table['name']);
         }
       }else{//table did not exist
         $sql = $this->getTableSql($table['name'], $table);
-        $this->dbStructure->doExecute($sql);
+        $this->dbs->doExecute($sql);
       }
     }
   }
 
   /*
-  public function hasErrors(): bool{
+    public function hasErrors(): bool{
     return $this->errors;
-  }
+    }
 
-  public function getErrorMessage(): string{
+    public function getErrorMessage(): string{
     return $this->errorMessage;
-  }
-  */
+    }
+   */
 
-  private function getTempTableName(){
+  private function getTempTableName():string{
     $i      = 1;
     $name   = 'temptable';
-    $tables = $this->dbStructure->getTableNames();
+    $tables = $this->dbs->getTableNames();
 
     $tempName = $name . $i;
 
@@ -72,7 +74,7 @@ class DbSchemaSqlite{
     return $tempName;
   }
 
-  private function getTableSql($tableName, $tableSchema){
+  private function getTableSql(string $tableName, array $tableSchema){
     $columns = "id INTEGER PRIMARY KEY AUTOINCREMENT ";
     foreach($tableSchema['columns'] as $column){
       $name    = $column['name'];
@@ -86,11 +88,11 @@ class DbSchemaSqlite{
     return $res;
   }
 
-  private function isTableSameAsExistent(array $tableSchema){
-    if(!in_array($tableSchema['name'], $this->dbStructure->getTableNames())){
+  private function isTableAsDescribed(array $tableSchema){
+    if(!in_array($tableSchema['name'], $this->dbs->getTableNames())){
       return false;
     }
-    $tabCol = $this->dbStructure->getColumnsInfo($tableSchema['name']);
+    $tabCol = $this->dbs->getColumnsInfo($tableSchema['name']);
     foreach($tableSchema['columns'] as $column){
       if(!isset($tabCol[$column['name']])){
         return false;
@@ -106,12 +108,12 @@ class DbSchemaSqlite{
     return true;
   }
 
-  private function copyData($oldTableName, $newTableName){
-    $colOld = $this->dbStructure->getColumnNames($oldTableName);
-    $colNew = $this->dbStructure->getColumnNames($newTableName);
+  private function copyData(string $oldTableName, string $newTableName){
+    $colOld = $this->dbs->getColumnNames($oldTableName);
+    $colNew = $this->dbs->getColumnNames($newTableName);
     $common = array_intersect($colOld, $colNew);
     $cols   = implode(',', $common);
-    $this->dbStructure->doExecute("INSERT INTO $newTableName($cols) SELECT $cols FROM $oldTableName;");
+    $this->dbs->doExecute("INSERT INTO $newTableName($cols) SELECT $cols FROM $oldTableName;");
   }
 
   private function renameTablesAndColumns(){
@@ -119,11 +121,11 @@ class DbSchemaSqlite{
       return;
     }
     foreach($this->dbSchema['rename']['tables'] as $from => $to){
-      $this->dbStructure->renameTable($from, $to);
+      $this->dbs->renameTable($from, $to);
     }
     foreach($this->dbSchema['rename']['columns'] as $table => $col){
       foreach($col as $from => $to){
-        $this->dbStructure->renameColumn($from, $to);
+        $this->dbs->renameColumn($table, $from, $to);
       }
     }
   }

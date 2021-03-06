@@ -1,6 +1,6 @@
 <?php
 
-namespace kmucms\sqlite\auxiliaryPrivate;
+namespace kmucms\dbsqlite\auxiliaryPrivate;
 
 class DbStructureSqlite{
 
@@ -71,16 +71,17 @@ class DbStructureSqlite{
     $this->doExecute($sql);
   }
 
-  public function removeColumn($table, $column){
-    
-  }
-
   public function renameColumn($table, $columnOld, $columnNew){
     $this->doExecute("alter table $table rename column $columnOld to $columnNew");
   }
 
   public function setColumnName($table, $columnOld, $columnNew){
     $this->renameColumn($table, $columnOld, $columnNew);
+  }
+
+  /*
+  public function removeColumn($table, $column){
+    
   }
 
   public function setColumnType($table, $column, $type){
@@ -98,6 +99,8 @@ class DbStructureSqlite{
   public function getColumnDefault($table, $column){
     
   }
+   
+   */
 
 // </editor-fold>
 // <editor-fold defaultstate="expanded" desc="structure info">

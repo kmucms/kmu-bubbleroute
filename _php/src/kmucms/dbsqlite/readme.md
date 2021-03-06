@@ -1,12 +1,11 @@
-
 Helping classes for using sqlite db.
 
-#WORKING WITH DB
+## WORKING WITH DB
 
+```php
 //to make live easier i use allways tables with a column='id'
 
-//file must exist
-$db = new \kmucms\sqlite\DbSqlite('/path/to/file.sqli');
+$db = new \kmucms\dbsqlite\DbSqlite('/path/to/file.sqli');
 
 //read some rows
 $row = $db->getRow("select * from page where id=5 limit 1");
@@ -20,31 +19,46 @@ $count = $db->getRowsCount('person', "first_name like 'a%'");
 $id = $db->addRow('person', ['first_name'=>'Max','last_name'=>'Maier']);
 $db->setRow('person', $id, ['first_name'=>'Peter']);
 $db->removeRow('person', $id);
+```
 
-
-#CREATING DB
+## CREATING DB
 
 Set version +1 if something has changed and schema needs an update.
 "rename" section is performed first, so remove it if there is nothing to rename. 
 Rename tables is the first renaming.
 Rename columns is the second renaming, for columns use only the new table-names.
+The id-row is added to every table.
+db_schema_info table is added to track current version.
 
+```php
 $schemaDescription = [
     'version' => 1,
-    'name' => 'user',
     'tables' => [
-        0 => [
+        [
             'name' => 'person',
             'columns' => [
-                0 => [
+                [
                     'name' => 'first_name',
                     'type' => 'string',
                     'default' => 'Maxim',
                 ],
-                1 => [
+                [
                     'name' => 'last_name',
                     'type' => 'string',
                     'default' => 'Maier',
+                ],
+            ],
+        ],
+        [
+            'name' => 'car',
+            'columns' => [
+                [
+                    'name' => 'brand',
+                    'type' => 'string',
+                ],
+                [
+                    'name' => 'price',
+                    'type' => 'integer',
                 ],
             ],
         ],
@@ -63,11 +77,7 @@ $schemaDescription = [
     ],
 ];
 
-$c = new kmucms\sqlite\DbSchemaSqlite(__DIR__.'/file.sqli', $schemaDescription);
+$c = new \kmucms\dbsqlite\DbSchemaSqlite(__DIR__.'/file.sqli', $schemaDescription);
 $c->update();
 
-
-
-
-
-
+```
