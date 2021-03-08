@@ -14,12 +14,22 @@ if(!$dp->hasObject($object)){
   exit;
 }
 $model = $dp->getObjectModel($object);
-$id    = intval($this->getUrlInfo()->getSlugRessort(2)??0);
-$this->setData('title', $model['label'].': id-'.$id);
-$item  = $_REQUEST['item'] ?? ($id>0? $db->getRowById($object, $id):[]);
+$id    = intval($this->getUrlInfo()->getSlugRessort(2) ?? 0);
+$this->setData('title', $model['label'] . ': id-' . $id);
+$item  = $_REQUEST['item'] ?? ($id > 0 ? $db->getRowById($object, $id) : []);
 ?>
 
 <div class="container">
+  <?=
+  $this->getComponent('bootstrap/breadcrumb', [
+    'crumb'   => [
+      'Admin'    => '/admin',
+      $model['label'] => '/admin/datapool/table/'.$object,
+    ],
+    'current' => 'id-' . $id
+  ])
+  ?>
+
   <?=
   $this->getComponent('bootstrap/form/form', [
     'fields'        => $dp->getModel()['model']['objects'][$object]['properties'],

@@ -17,13 +17,13 @@ $this->setData('title', 'Login');
     'fields'        => [
       'name'     => [
         'label'     => 'Name',
-        'component' => 'bootstrap/form/items/input',
+        //'component' => 'bootstrap/form/items/input',
         'type'      => 'input',
         'mandatory' => 1,
       ],
       'password' => [
         'label'     => 'Passwort',
-        'component' => 'bootstrap/form/items/password',
+        //'component' => 'bootstrap/form/items/password',
         'type'      => 'password',
         'default'   => '',
       ],
