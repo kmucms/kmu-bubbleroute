@@ -17,15 +17,15 @@ pick your console
 git clone https://github.com/kmucms/kmu-cms.git
 cd kmu-cms
 cd _php
-**composer install**
+composer install
 cd ..
 cd _files
 cd web
 cd files
-**npm update**
+npm update
 cd ..
 cd ..
-**php -S "localhost:8000"**
+php -S "localhost:8000"
 ```
 
 go to your browser and type
@@ -44,13 +44,13 @@ todo: add description
 
 ```
 project_root
-  **_runtime**            files that are created on runtime. e.g. uploaded images.
+  _runtime            files that are created on runtime. e.g. uploaded images.
     data              not public data, file-imports, configurations, cache ...
     web/runtime       public data
-  **_files**              non server-code files, css/js libraries, images, fonts, icons ... which are shipped with software
+  _files              non server-code files, css/js libraries, images, fonts, icons ... which are shipped with software
     data              not public data, e.g. admin user manual
     web/files         public data
-  **_php**                all the server-side code (php, cann also be packed to phar-package)
+  _php                all the server-side code (php, cann also be packed to phar-package)
     src               classes/object oriented coding
     web               basic rooting
     vendor            code-libraries
