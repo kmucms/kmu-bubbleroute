@@ -6,5 +6,5 @@ if(!$admin->isLoggedIn()){
   exit;
 }
 
-\kmucms\datapool\DataPool::getInstance()->setModel(json_decode($_POST['model'],true));
+\kmucms\datapool\DataPool::getInstance()->setModelEditVersion(json_decode($_POST['model'],true));
 exit;

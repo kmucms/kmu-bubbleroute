@@ -1,6 +1,6 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
-$this->setPageEnvelope();
+$this->setPageEnvelope('admin');
 
 $this->setData('title', 'DataPool');
 ?>

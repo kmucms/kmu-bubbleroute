@@ -4,6 +4,7 @@
 !/_files/web/files/package.json
 /_php/vendor/**
 /_php/composer.lock
+/_php/_config.php
 .sass-cache/
 *.css.map
 *.sass.map

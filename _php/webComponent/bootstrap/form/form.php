@@ -14,11 +14,15 @@ $buttonName = $this->getData('submitButton') ?? 'submitButton';
 
 <div class="row">
   <div class="col-lg-6 col-md-8 mx-auto">
-    <form>
+    <form method="POST">
       <?php foreach($fields as $kField => $field): ?>
         <div class="mb-2">
-          <?=
-          $this->getComponent($field['component'], [
+          <?php
+          $compName = 'bootstrap/form/items/'.$field['type'];
+          if(!$this->isComponent($compName)){
+            $compName = 'bootstrap/form/items/input';
+          }
+          echo $this->getComponent($compName, [
             'value'    => $values[$kField] ?? ($field['default'] ?? ''),
             'nameHtml' => $valuesClass . '[' . $kField . ']',
             ] + $field)

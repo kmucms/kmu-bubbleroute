@@ -6,5 +6,6 @@ if(!$admin->isLoggedIn()){
   exit;
 }
 
-\kmucms\datapool\DataPool::getInstance()->setModel(json_decode($_POST['model'],true));
+\kmucms\datapool\DataPool::getInstance()->compile();
+echo 'ok';
 exit;

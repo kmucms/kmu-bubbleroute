@@ -12,6 +12,7 @@
 
   "require": {
     "symfony/yaml": "*",
-    "kmucms/config": "@dev"
+    "kmucms/config": "@dev",
+    "kmucms/dbsqlite": "@dev"
   }
 }

@@ -1,6 +1,6 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
-$this->setPageEnvelope();
+$this->setPageEnvelope('admin');
 
 $this->setData('title', 'DataPool: Objekte definieren');
 $this->getWeblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
@@ -19,7 +19,7 @@ $this->getWeblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
   ?>
 
   <div id="data" 
-       data-json="<?= htmlentities(json_encode(\kmucms\datapool\DataPool::getInstance()->getModel())) ?>" 
+       data-json="<?= htmlentities(json_encode(\kmucms\datapool\DataPool::getInstance()->getModelEditVersion())) ?>" 
        data-types="<?= htmlentities(json_encode(\kmucms\datapool\DataPool::getInstance()->getPropertyTypes())) ?>"
        ></div>
 
@@ -166,7 +166,9 @@ $this->getWeblib()->addJs('/files/node_modules/vue/dist/vue.min.js');
             $.post('/admin/datapool/edit/savemodel/', {'model': JSON.stringify(model)});
           },
           compile() {
-            $.post('/admin/datapool/edit/compilemodel/', {'model': JSON.stringify(this.modeldata)});
+            $.post('/admin/datapool/edit/compilemodel/', {}, function (cres) {
+              alert(cres);
+            });
           },
           deleteItem(arr, index) {
             this.$delete(arr, index);

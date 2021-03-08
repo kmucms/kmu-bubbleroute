@@ -1,6 +1,6 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
-$this->setPageEnvelope('index');
+$this->setPageEnvelope('admin');
 $this->setData('title', 'Administrationsbereich');
 
 $adminUser = new \kmucms\adminuser\AdminUser();

@@ -14,18 +14,18 @@ $this->setData('title', 'meintitel');
 <div class="container mb-5">
   <pre>
 
-  <?php
-  $ressort = $this->getUrlInfo()->getRessort(1);
-  $dp      = kmucms\datapool\DataPool::getInstance();
-  if($dp->hasObject($ressort)){
-    var_dump($dp->getObjectModel($ressort));
-    var_dump($this->getUrlInfo()->getRessort(2));
-  }else{
-    echo 'seite nicht gefunden.';
-  }
-  ?>
+    <?php
+    $ressort = $this->getUrlInfo()->getRessort(1);
+    $dp      = kmucms\datapool\DataPool::getInstance();
+    if($dp->hasObject($ressort)){
+      var_dump($dp->getObjectModel($ressort));
+      var_dump($this->getUrlInfo()->getRessort(2));
+    }else{
+      echo 'seite nicht gefunden.';
+    }
+    ?>
 
- </pre>
+  </pre>
 
 
 
