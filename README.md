@@ -13,7 +13,7 @@ needed:
 
 pick your console
 
-´´´
+```
 git clone https://github.com/kmucms/kmu-cms.git
 cd kmu-cms
 cd _php
@@ -26,7 +26,7 @@ npm update
 cd ..
 cd ..
 php -S "localhost:8000"
-´´´
+```
 
 go to your browser and type
 
@@ -78,6 +78,7 @@ bottom up is when you have sollutions to problems and you are using them to solf
 ## what is a sollution?
 
 for a devoloper is sollution a function or a class or a configurable package.
+
 **[what i want] = sollutionFunction ([what i have])**
 
 ## but what is a good sollution?
