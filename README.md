@@ -30,9 +30,9 @@ php -S "localhost:8000"
 
 go to your browser and type
 
-´´´
+```
 localhost:8000
-´´´
+```
 
 # USE
 
@@ -42,7 +42,7 @@ todo: add description
 
 # project folders
 
-´´´
+```
 project_root
   _runtime            files that are created on runtime. e.g. uploaded images.
     data              not public data, file-imports, configurations, cache ...
@@ -59,7 +59,7 @@ project_root
   .htaccess           apache-server redirects
   htaccess.php        .htaccess emulation for php buildin server
   index.php           calls _php/index.php
-´´´
+```
 
 **web** folder are accessible through the browser. the order is **runtime>files>php** (means if something is in runtime/web/example.txt and
 files/web/example.txt then runtime/web/example.txt will be the output). 
