@@ -1,5 +1,6 @@
 Small php-project for custom websites.
 
+# in development, dangerous to use, changes are comming, :P
 
 # INSTALL
 
@@ -11,6 +12,8 @@ needed:
 -  some ide, i use netbeans
 
 pick your console
+
+´´´
 git clone https://github.com/kmucms/kmu-cms.git
 cd kmu-cms
 cd _php
@@ -23,10 +26,13 @@ npm update
 cd ..
 cd ..
 php -S "localhost:8000"
+´´´
 
 go to your browser and type
-localhost:8000
 
+´´´
+localhost:8000
+´´´
 
 # USE
 
@@ -36,6 +42,7 @@ todo: add description
 
 # project folders
 
+´´´
 project_root
   _runtime            files that are created on runtime. e.g. uploaded images.
     data              not public data, file-imports, configurations, cache ...
@@ -52,12 +59,13 @@ project_root
   .htaccess           apache-server redirects
   htaccess.php        .htaccess emulation for php buildin server
   index.php           calls _php/index.php
+´´´
 
-web folder are accessible through the browser. the order is runtime>files>php (means if something is in runtime/web/example.txt and
+**web** folder are accessible through the browser. the order is **runtime>files>php** (means if something is in runtime/web/example.txt and
 files/web/example.txt then runtime/web/example.txt will be the output). 
 however subfolders(web/runtime and web/files) should be used to have a better traceability. 
 
-vendor folder/ composer.json libraries are a good way to speedup the development. 
+**vendor folder/ composer.json** libraries are a good way to speedup the development. 
 also using image libraries and js/css libraries is a good idea.
 
 
@@ -70,7 +78,7 @@ bottom up is when you have sollutions to problems and you are using them to solf
 ## what is a sollution?
 
 for a devoloper is sollution a function or a class or a configurable package.
-[what i want] = sollutionFunction ([what i have])
+**[what i want] = sollutionFunction ([what i have])**
 
 ## but what is a good sollution?
 
