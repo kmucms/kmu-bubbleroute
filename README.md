@@ -34,9 +34,6 @@ go to your browser and type
 localhost:8000
 ```
 
-# USE
-
-todo: add description
 
 ---
 
@@ -66,5 +63,57 @@ files/web/example.txt then runtime/web/example.txt will be the output).
 however subfolders(web/runtime and web/files) should be used to have a better traceability. 
 
 **vendor folder/ composer.json** libraries are a good way to speedup the development. 
-also using image libraries and js/css libraries is a good idea.
+also using image libraries and js/css libraries is a good idea - they should be placed in files/web/files/ directory.
+
+# Hallo World
+
+make a file _php/web/test/index.php
+
+```php
+
+Hallo World
+
+```
+
+open the page in browser: localhost:8000/test
+
+
+## webEnvelope
+
+make file _php/webEnvelope/test.php
+
+```php
+<?php
+/** @var kmucms\uipages\PageEnvelope $this */
+?>
+
+<html>
+  <body>
+    <div>HEADER: <?= $this->getData('title') ?></div>
+    <hr/>
+    <?= $this->getData('content') ?>  
+    <hr/>
+    <div>FOOTER</div>
+  </body>
+</html>
+
+```
+
+edit _php/web/test/index.php 
+
+```php
+
+<?php
+/** @var \kmucms\uipages\PageWeb $this */
+
+$this->setPageEnvelope('test');
+$this->setData('title', 'Homepage');
+?>
+
+Hallo World
+
+```
+
+refresh the page in browser. you should see the header, content "hallo world" and the footer.
+if you create more pages, you can reuse the envelope and don't need to write header and footer in every web-file.
 
