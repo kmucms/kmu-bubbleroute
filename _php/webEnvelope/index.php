@@ -23,6 +23,7 @@
     <!-- CSS -->
     <link href="/files/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/files/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/files/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
   </head>
   <body>

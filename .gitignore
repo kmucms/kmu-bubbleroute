@@ -5,6 +5,7 @@
 /_php/vendor/**
 /_php/composer.lock
 /_php/_config.php
+/_php/howtos/**
 .sass-cache/
 *.css.map
 *.sass.map

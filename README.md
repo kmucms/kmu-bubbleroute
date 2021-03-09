@@ -68,27 +68,3 @@ however subfolders(web/runtime and web/files) should be used to have a better tr
 **vendor folder/ composer.json** libraries are a good way to speedup the development. 
 also using image libraries and js/css libraries is a good idea.
 
-
-# sollution based aproach
-
-there are two ways top down and bottom up. 
-top down is when you devide a problem into two more simple problems and so on.
-bottom up is when you have sollutions to problems and you are using them to solfe more complex problems.
-
-## what is a sollution?
-
-for a devoloper is sollution a function or a class or a configurable package.
-
-**[what i want] = sollutionFunction ([what i have])**
-
-## but what is a good sollution?
-
-there is a similar quastion: make or buy?
-rule of thumb is time for:
-  - find a sollution
-  - decide if the sollution solves the problem
-  - configure the sollution
-should be less than solfe problem on your own.
-
-the second part of a good sollution is that one sollution don't break the other sollution. it means there should be a rule
-how to use common shared ressources.

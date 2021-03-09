@@ -13,6 +13,7 @@
   "require": {
     "symfony/yaml": "*",
     "kmucms/config": "@dev",
-    "kmucms/dbsqlite": "@dev"
+    "kmucms/dbsqlite": "@dev",
+    "erusev/parsedown": "^1.7"
   }
 }

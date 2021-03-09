@@ -17,6 +17,14 @@ $model = $dp->getObjectModel($object);
 $id    = intval($this->getUrlInfo()->getSlugRessort(2) ?? 0);
 $this->setData('title', $model['label'] . ': id-' . $id);
 $item  = $_REQUEST['item'] ?? ($id > 0 ? $db->getRowById($object, $id) : []);
+if(($_REQUEST['submitButton']??'') == 'ok'){
+  if($id==0){
+    $id = $db->addRow($object, $item);
+    $this->redirect('/admin/datapool/item/'.$object.'/'.$id);
+  }else{
+    $db->updateRow($object, $id, $item);
+  }
+}
 ?>
 
 <div class="container">

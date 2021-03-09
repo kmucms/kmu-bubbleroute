@@ -2,6 +2,7 @@
 
 function htaccessEchoFile($file){
   $ext  = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+  //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   $mime = [
     'css' => 'text/css',
     'js'  => 'text/javascript',
@@ -9,6 +10,7 @@ function htaccessEchoFile($file){
     'png' => 'image/png',
     'txt' => 'text/plain',
     'ico' => 'image/x-icon',
+    'svg' => 'image/svg+xml',
   ];
   // $fp = fopen($file, 'rb');
   header('Content-Length: ' . filesize($file));
