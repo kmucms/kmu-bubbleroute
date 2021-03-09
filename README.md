@@ -25,7 +25,7 @@ cd files
 npm update
 cd ..
 cd ..
-php -S "localhost:8000"
+php -S "localhost:8000" "htaccess.php"
 ```
 
 go to your browser and type
@@ -119,3 +119,40 @@ if you create more pages, you can reuse the envelope and don't need to write hea
 you can forward data by $this->setData to envelope and retrife the data with $this->getData in the envelope.
 the content of the page is automatically added to $this->setData('content',...) part.
 
+if you change $this->setPageEnvelope('test'); to $this->setPageEnvelope('index'); you should see Hallo World in
+the default envelope, you saw on the start page.
+
+
+## webComponent
+
+create a file: _php/webComponent/testComment.php
+
+```php
+
+<?php
+/** @var \kmucms\uipages\PageComponent $this */
+?>
+
+<div class="container">
+  <?= $this->getData('person') ?> says: <?= $this->getData('comment') ?>
+</div>
+
+```
+
+
+```php
+
+<?php
+/** @var \kmucms\uipages\PageWeb $this */
+
+$this->setPageEnvelope('test');
+$this->setData('title', 'Homepage');
+?>
+
+two dudes met on the street
+<?= $this->getComponent('testComment', ['persor'=>'Max','comment'=>'Hallo, how are u?']?>
+<?= $this->getComponent('testComment', ['persor'=>'John','comment'=>'Hi, I'm fine.']?>
+
+```
+
+you can reuse html-parts.
