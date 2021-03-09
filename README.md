@@ -116,4 +116,6 @@ Hallo World
 
 refresh the page in browser. you should see the header, content "hallo world" and the footer.
 if you create more pages, you can reuse the envelope and don't need to write header and footer in every web-file.
+you can forward data by $this->setData to envelope and retrife the data with $this->getData in the envelope.
+the content of the page is automatically added to $this->setData('content',...) part.
 
