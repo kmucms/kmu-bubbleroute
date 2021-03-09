@@ -150,8 +150,8 @@ $this->setData('title', 'Homepage');
 ?>
 
 two dudes met on the street
-<?= $this->getComponent('testComment', ['persor'=>'Max','comment'=>'Hallo, how are u?']?>
-<?= $this->getComponent('testComment', ['persor'=>'John','comment'=>'Hi, I'm fine.']?>
+<?= $this->getComponent('testComment', ['persor'=>'Max','comment'=>"Hallo, how are u?"]?>
+<?= $this->getComponent('testComment', ['persor'=>'John','comment'=>"Hi, I'm fine."]?>
 
 ```
 
