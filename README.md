@@ -107,7 +107,7 @@ edit _php/web/test/index.php
 /** @var \kmucms\uipages\PageWeb $this */
 
 $this->setPageEnvelope('test');
-$this->setData('title', 'Homepage');
+$this->setData('title', 'MyTestPage');
 ?>
 
 Hallo World
@@ -146,7 +146,7 @@ create a file: _php/webComponent/testComment.php
 /** @var \kmucms\uipages\PageWeb $this */
 
 $this->setPageEnvelope('test');
-$this->setData('title', 'Homepage');
+$this->setData('title', 'MyTestPage');
 ?>
 
 two dudes met on the street
