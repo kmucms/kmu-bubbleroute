@@ -10,7 +10,7 @@ class APage{
 
   protected $templateId             = '';
   protected static $usedTemplateIds = [];
-  protected $templatePath             = '';
+  protected $templatePath           = '';
 
   /** @var \kmucms\config\Config */
   private $config;
@@ -23,15 +23,13 @@ class APage{
     $this->templatePath                                 = $this->config->getConf('templatePath');
   }
 
-
-
   public function getComponent(string $componentId, array $data = []): string{
     $component = new \kmucms\uipages\PageComponent($componentId, $data);
     return $component->getHtml();
   }
-  
+
   public function isComponent(string $componentId): bool{
-    return is_file($this->templatePath[static::type] . '/' . $componentId . '.php');
+    return is_file($this->templatePath[\kmucms\uipages\PageComponent::type] . '/' . $componentId . '.php');
   }
 
   public function getComponents(array $componentIdAnddata = []): string{
@@ -56,6 +54,11 @@ class APage{
 
   public function getWeblib(): Weblib{
     return Weblib::getInstance();
+  }
+
+  public function redirect(string $dest){
+    header('Location: ' . $dest);
+    exit;
   }
 
 }

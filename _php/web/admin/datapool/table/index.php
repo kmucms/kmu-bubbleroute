@@ -17,11 +17,20 @@ $this->setData('title', 'DataPool: ' . $model['label']);
 ?>
 
 <div class="container">
-  <a href="/admin/datapool/item/<?=$object?>" class="btn btn-primary">Neu</a>
+  <a href="/admin/datapool/item/<?= $object ?>" class="btn btn-primary">Neu</a>
 </div>
 
-<table>
-  <?php foreach($db->getRows("select * from $object ") as $obj): ?>
-    <tr><td><?= $obj['id'] ?></td></tr>
-  <?php endforeach; ?>
-</table>
+<div class="text-center">
+  <table class="mx-auto">
+    <tr><th>id</th><th>Titel</th><th>Beschreibung</th></tr>
+    <?php foreach($db->getRows("select * from $object ") as $obj): ?>
+      <tr>
+        <td>
+          <a href="/admin/datapool/item/<?= $object ?>/<?= $obj['id'] ?>" class="btn btn-primary"><?= $obj['id'] ?></a>
+        </td>
+        <td><?= $obj['title'] ?></td>
+        <td><?= $obj['description'] ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+</div>

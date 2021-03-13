@@ -18,5 +18,5 @@ if($request->hasFoundController()){
 $request = \kmucms\routing\BubbleRequest::getInstance();
 
 if($request->hasFoundController()){
-  (new \kmucms\uipages\PageWeb($request->getScriptId()))->echoPage();
+  (new \kmucms\uipages\PageWeb(trim(substr($request->getScript(), 0, -4), '/')))->echoPage();
 }

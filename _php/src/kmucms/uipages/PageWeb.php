@@ -52,9 +52,6 @@ class PageWeb extends common\APage{
     return $res;
   }
 
-  public function redirect(string $dest){
-    header('Location: ' . $dest);
-    exit;
-  }
+
 
 }

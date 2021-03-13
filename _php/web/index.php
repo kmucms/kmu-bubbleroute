@@ -3,9 +3,16 @@
 $ressort = $this->getUrlInfo()->getRessort(1);
 $dp      = kmucms\datapool\DataPool::getInstance();
 if($dp->hasObject($ressort)){
-  var_dump($dp->getObjectModel($ressort));
-  var_dump($this->getUrlInfo()->getRessort(2));
-  exit;
+  $slug = $this->getUrlInfo()->getRessort(2);
+  $row  = $dp->getObjectBySlug($ressort, $slug);
+  $this->setPageEnvelope('index');
+  if($this->isComponent('datapool/singleview/' . $ressort)){
+    echo $this->getComponent('datapool/singleview/' . $ressort, $row, $dp->getObjectModel($ressort));
+  }else{
+    echo($row['data']);
+  }
+  $this->setDataAll($row);
+  return;
 }
 
 $this->setPageEnvelope('index');

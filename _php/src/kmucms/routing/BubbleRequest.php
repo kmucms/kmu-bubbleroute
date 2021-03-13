@@ -23,7 +23,6 @@ class BubbleRequest{
     self::$requestData['found']      = false;
     self::$requestData['slug']       = '';
     self::$requestData['scriptPath'] = '';
-    self::$requestData['scriptId']   = '';
     $fileParts                       = explode('/', $uri);
     self::$requestData['uriPart']    = $fileParts;
     self::$requestData['ext']        = strtolower(pathinfo($uri, PATHINFO_EXTENSION));
@@ -32,7 +31,6 @@ class BubbleRequest{
       self::$requestData['found']      = true;
       self::$requestData['currentUri'] = $uri;
       self::$requestData['scriptPath'] = $uri;
-      self::$requestData['scriptId']   = trim(substr($uri, 0, -4), '/');
       return;
     }
 
@@ -47,7 +45,6 @@ class BubbleRequest{
         $slugRessorts                     = array_reverse($uriParam);
         self::$requestData['slugRessort'] = $slugRessorts;
         self::$requestData['slug']        = implode('/', $slugRessorts);
-        self::$requestData['scriptId']    = trim($scriptPath . '/index', '/');
         return;
       }
       $uriParam[] = array_pop($fileParts);
@@ -93,13 +90,8 @@ class BubbleRequest{
     return self::$requestData['uriPart'][$pos] ?? '';
   }
 
-  public function getScriptId(): string{
-    return self::$requestData['scriptId'];
-  }
-  
   public function hasFoundController(): bool{
     return self::$requestData['found'];
   }
 
-  
 }

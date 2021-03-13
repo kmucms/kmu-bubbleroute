@@ -6,9 +6,9 @@
   RewriteCond %{REQUEST_FILENAME} !\.php$
   RewriteRule ^(.*)$ /_runtime/web/$1 [END,QSA]
 
-  RewriteCond /web/%{REQUEST_FILENAME} -f  
+  RewriteCond /_files/web/%{REQUEST_FILENAME} -f  
   RewriteCond %{REQUEST_FILENAME} !\.php$
-  RewriteRule ^(.*)$ /web/$1 [END,QSA]
+  RewriteRule ^(.*)$ /_files/web/$1 [END,QSA]
 
   RewriteCond %{REQUEST_URI} !^/index.php$ [NC]
   RewriteRule ^(.*)$ /index.php [END,QSA]

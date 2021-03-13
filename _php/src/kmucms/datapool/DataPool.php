@@ -54,7 +54,7 @@ class DataPool{
     $dbs     = new \kmucms\dbsqlite\DbSchemaSqlite($file, $dbModel);
     $dbs->update(false);
   }
-  
+
   public function getDb(){
     return new \kmucms\dbsqlite\DbSqlite($this->filesRepo->getAbsoluteFilePath('db.sqli'));
   }
@@ -82,6 +82,23 @@ class DataPool{
   public function getPropertyTypes(){
     $types = \kmucms\config\Config::getInstanceByClass(self::class)->getConf('propertyTypes');
     return array_combine($types, $types);
+  }
+
+  public function getObjectBySlug(string $object, string $slug): array{
+    $db  = $this->getDb();
+    $res = $db->getRow("select * from $object where slug=:slug;", ['slug' => $slug]);
+    if($res !== false){
+      return $res;
+    }
+    $res = $db->getRow("select * from $object where slug like :slug;", ['slug' => '%' . $slug . '%']);
+    if($res !== false){
+      return $res;
+    }
+    $res = $db->getRowById($object,intval($slug));
+    if($res !== false){
+      return $res;
+    }
+    return [];
   }
 
   // <editor-fold defaultstate="collapsed" desc="singleton stuff">

@@ -14,8 +14,8 @@
     <link rel="canonical" href="<?= $this->getData('canonical') ?? '' ?>">
 
     <!-- Favicons -->
-    <link rel="icon" href="/weblib/kmucms/cmsmedia/favicon/favicon.png"> 
-
+    <link rel="icon" href="/files/kmucms/cmsmedia/favicon/favicon.png"> 
+    
     <!-- tech -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

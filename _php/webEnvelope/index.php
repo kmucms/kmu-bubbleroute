@@ -7,10 +7,10 @@
 <html lang="<?= $this->getData('language') ?? 'de' ?>">
   <head>
 
+    <!-- Seo -->
     <title><?= $this->getData('title') ?? '' ?></title>
-    <meta name="author" content="<?= $this->getData('author') ?? '' ?>">
     <meta name="description" content="<?= $this->getData('description') ?? '' ?>">
-
+    <meta name="author" content="<?= $this->getData('author') ?? '' ?>">
     <link rel="canonical" href="<?= $this->getData('canonical') ?? '' ?>">
 
     <!-- Favicons -->
