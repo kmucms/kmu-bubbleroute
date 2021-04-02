@@ -138,7 +138,7 @@ create a file: _php/webComponent/testComment.php
 </div>
 
 ```
-
+edit _php/web/test/index.php
 
 ```php
 
