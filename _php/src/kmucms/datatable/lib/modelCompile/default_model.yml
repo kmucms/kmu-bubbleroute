@@ -1,0 +1,50 @@
+
+model:
+  version: 1
+  objects: 
+    epaper:
+      label: E-Paper
+      icon: fa fa-pencil-square-o
+      properties:
+        title: 
+          type: string
+          label: Titel
+        titleHide:
+          type: checkbox
+          label: Titel auf Webseite ausblenden
+          beTable: 0
+          beEdit: 1
+        description:
+          type: textarea
+          label: Beschreibung
+        descriptionHide:
+          type: checkbox
+          label: Beschreibung auf Webseite ausblenden
+          beTable: 0
+          beEdit: 1
+        slug: 
+          type: string
+          label: Url-Postfix (Slug)     
+        img: 
+          type: img
+          label: Seitenbild
+        imgHide:
+          type: checkbox
+          label: Bild auf Webseite ausblenden
+          beTable: 0
+          beEdit: 1
+    page:
+      label: Seiten
+      icon: fa fa-pencil-square-o
+      attributes: 
+        main: 1
+      properties:
+        url: 
+          type: string
+          label: Url     
+        data:
+          type: string
+          label: Seitendaten
+          beTable: 0
+          beEdit: 0             
+          

@@ -1,0 +1,19 @@
+active:
+  type: checkbox
+  label: Aktiv/öffentlich 
+title: 
+  type: string
+  label: Titel
+description:
+  type: textarea
+  label: Beschreibung
+keywords:
+  type: string
+  label: Schlüsselwörter(mit Komma getrennt)
+img: 
+  type: img
+  label: Seitenbild   
+date:
+  type: date
+  label: Datum
+

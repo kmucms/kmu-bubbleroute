@@ -1,0 +1,35 @@
+<?xml version = "1.0" ?>
+<project name = "KMUCMS" default = "run_server" basedir="..">
+  
+  <target name="run_server">
+    <exec executable="php">
+      <arg value="-S" />
+      <arg value="localhost:8000" />
+      <arg value="htaccess.php" />
+    </exec>
+  </target> 
+  
+  <target name="make_app.phar">
+    <exec executable="php">
+      <arg value="${basedir}/_php/scripts/makephar.php" />
+    </exec>
+  </target>
+  
+  <target name="composer_autoload">
+    <exec dir="${basedir}" executable="composer.bat">
+      <arg value="dumpautoload" />
+      <arg value="-o" />
+    </exec>
+  </target>
+  
+  <target name="dependencies_update">
+    <exec dir="${basedir}" executable="composer.bat">
+      <arg value="update" />
+    </exec>
+    <exec dir="${basedir}/_files/web/files" executable="npm.cmd">
+      <arg value="update" />
+    </exec>
+  </target>
+  
+</project>
+

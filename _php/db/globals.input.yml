@@ -1,0 +1,13 @@
+
+alert:
+  type: string
+  label: Eilmeldung
+footertext:
+  type: textarea
+  label: Nachspanntext(Footer)  
+nav:
+  type: nav
+  label: Menü - Hauptnavigation  
+navfooter:
+  type: nav
+  label: Menü - Fußzeile

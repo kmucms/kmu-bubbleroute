@@ -1,0 +1,6 @@
+.§-bar{
+  font-size: 10px;
+  background-image: repeating-linear-gradient(45deg,#858163,#858163 22px, black 22px, black 44px);
+  border:2px solid black;
+
+}

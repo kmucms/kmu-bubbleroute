@@ -1,0 +1,16 @@
+active:
+  type: checkbox
+  label: Aktiv/öffentlich 
+title: 
+  type: string
+  label: Titel
+description:
+  type: textarea
+  label: Beschreibung
+img: 
+  type: img
+  label: Seitenbild   
+date:
+  type: date
+  label: Datum
+          

@@ -1,0 +1,99 @@
+
+model: 
+  version: 20
+  objects:
+    page:
+      label: Seite
+      icon: fa fa-file
+      attributes:
+        main: true
+      properties:  
+        url:
+          type: string
+          label: Url
+          beTable: 1
+          beEdit: 1 
+    imgcat:
+      label: Bild
+      icon: fa  fa-photo 
+      attributes:
+        main: false
+      properties:      
+        url:
+          type: string
+          label: Link
+          beTable: 1
+          beEdit: 1          
+    person:
+      label: Mitglied
+      icon: fa fa-user
+      attributes:
+        main: false
+      properties:       
+        registertoken:
+          type: string
+          label: registertoken
+          beTable: 0
+          beEdit: 0  
+        state:
+          type: select
+          label: Status
+          options:
+            new: neu
+            active: aktiv
+        email:
+          type: email
+          label: E-Mail
+        name:
+          type: string
+          label: Spitzname/Künstlername/Vorname        
+        firstname:
+          type: string
+          label: Vorname
+        lastname:
+          type: string
+          label: Nachname
+        password:
+          type: string
+          label: Passwort
+        description:
+          type: textarea
+          label: data
+          beTable: 0
+          beEdit: 0      
+    vartrace:
+      label: Seiten - Daten
+      icon: fa fa-pencil-square-o
+      attributes:
+        main: false
+        debug: true
+      properties:       
+        traceid:
+          type: string
+          label: traceid
+          beTable: 1
+          beEdit: 0 
+        data:
+          type: textarea
+          label: data
+          beTable: 0
+          beEdit: 0            
+    email:
+      label: gesendete EMails
+      icon: fa  fa-envelope 
+      attributes:
+        main: false
+        debug: true
+      properties:
+        emailFrom:
+          type: email
+          label: von
+        emailTo:
+          type: email
+          label: zu
+        subject:
+          type: string
+          label: Betreff
+        message:
+          type: textArea
+          label: Nachricht        
