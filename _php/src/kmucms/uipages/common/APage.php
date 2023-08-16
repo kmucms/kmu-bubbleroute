@@ -10,26 +10,41 @@ class APage{
 
   protected $templateId             = '';
   protected static $usedTemplateIds = [];
-  protected $templatePath           = '';
+  protected $templatePath = [];
+  protected $tpath;
 
-  /** @var \kmucms\config\Config */
-  private $config;
+  /** @var \kmucms\weblib\JsLib */
+  public $js;
 
-  public function __construct($templateId, $data = []){
-    $this->templateId                                   = $templateId;
-    $this->data                                         = $data;
+  /** @var \kmucms\weblib\CssLib */
+  public $css;
+
+
+  public function __construct($templateId, $data = [], string $tpath = '') {
+    $this->templateId = trim($templateId);
+    $this->data = $data;
+    $this->tpath = $tpath;
     static::$usedTemplateIds[static::type][$templateId] = 1;
-    $this->config                                       = \kmucms\config\Config::getInstanceByClass(self::class);
-    $this->templatePath                                 = $this->config->getConf('templatePath');
+    $this->templatePath = [
+      'web' => $tpath . '/web',
+      'envelope' => $tpath . '/webEnvelope',
+      'component' => $tpath . '/webComponent',
+    ];
+    $this->js = \kmucms\weblib\JsLib::getInstance();
+    $this->css = \kmucms\weblib\CssLib::getInstance();
   }
 
   public function getComponent(string $componentId, array $data = []): string{
-    $component = new \kmucms\uipages\PageComponent($componentId, $data);
+    $component = new \kmucms\uipages\PageComponent(trim($componentId), $data, $this->tpath);
     return $component->getHtml();
+  }
+  
+  private function replaceJoker($type, $templateId, $text) {
+    return str_replace('§-', $type . '-' . str_replace('/', '_', $templateId) . '-', $text);
   }
 
   public function isComponent(string $componentId): bool{
-    return is_file($this->templatePath[\kmucms\uipages\PageComponent::type] . '/' . $componentId . '.php');
+    return is_file($this->templatePath[\kmucms\uipages\PageComponent::type] . '/' . trim($componentId) . '.php');
   }
 
   public function getComponents(array $componentIdAnddata = []): string{
@@ -45,15 +60,8 @@ class APage{
     ob_start();
     require $this->templatePath[static::type] . '/' . $this->templateId . '.php';
     $res = ob_get_clean();
+    $res = $this->replaceJoker($this::type, $this->templateId, $res) ;
     return $res;
-  }
-
-  public function getUrlInfo(): \kmucms\routing\BubbleRequest{
-    return \kmucms\routing\BubbleRequest::getInstance();
-  }
-
-  public function getWeblib(): Weblib{
-    return Weblib::getInstance();
   }
 
   public function redirect(string $dest){

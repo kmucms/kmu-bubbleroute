@@ -11,6 +11,7 @@ function htaccessEchoFile($file){
     'txt' => 'text/plain',
     'ico' => 'image/x-icon',
     'svg' => 'image/svg+xml',
+    'xml' => 'application/xml',
   ];
   // $fp = fopen($file, 'rb');
   header('Content-Length: ' . filesize($file));
@@ -21,7 +22,7 @@ function htaccessEchoFile($file){
   exit;
 }
 
-$url         = explode('?', filter_input(INPUT_SERVER, 'REQUEST_URI'), 2)[0];
+$url         = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 $urlRessorts = explode('/', $url);
 $urlRessort1 = $urlRessorts[1] ?? '';
 $ext         = strtolower(pathinfo($url, PATHINFO_EXTENSION));

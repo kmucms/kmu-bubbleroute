@@ -1,28 +1,40 @@
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
-$ressort = $this->getUrlInfo()->getRessort(1);
-$dp      = kmucms\datapool\DataPool::getInstance();
-if($dp->hasObject($ressort)){
-  $slug = $this->getUrlInfo()->getRessort(2);
-  $row  = $dp->getObjectBySlug($ressort, $slug);
-  $this->setPageEnvelope('index');
-  if($this->isComponent('datapool/singleview/' . $ressort)){
-    echo $this->getComponent('datapool/singleview/' . $ressort, $row, $dp->getObjectModel($ressort));
-  }else{
-    echo($row['data']);
+$this->setEnvelope('kmucms/index');
+
+$db = kmucms\App::getInstance()->getDb();
+
+
+$activeCond = '';
+if (!\kmucms\App::getInstance()->getPersonAdmin()->isLoggedIn()) {
+  $activeCond = 'active=1 and';
+}
+$page = $db->getRowByCondition("page", "$activeCond url=:url", ['url'=>kmucms\App::getInstance()->getUrlInfo()->getUri()]);
+if (count($page??[]) < 1) {
+  if (kmucms\App::getInstance()->getPersonAdmin()->isEditMode()) {
+    $par = [
+      "item" => [
+        "url" => kmucms\App::getInstance()->getUrlInfo()->getUri()
+      ]
+    ];
+    $this->redirect('/service/admin/be/datatable/newmain/?' . http_build_query($par));
   }
-  $this->setDataAll($row);
-  return;
+  $page = $db->getRow('select * from page where active=1 order by url asc limit 1');
 }
 
-$this->setPageEnvelope('index');
-$this->setData('title', 'Homepage');
+$this->setDataAll($page);
+$this->setData('canonical', $page['url']);
+if (kmucms\App::getInstance()->getPersonAdmin()->isEditMode()) {
+  $this->setData('editButton', '<a class="edit_button" href="/service/admin/be/datatable/item/page/' . $page['id'] . '">&#128397;</a>');
+}
+
+$this->initValue('page-' . $page['id']);
 ?>
 
-<div class="container mb-5">
-
-  <h2>
-    Hallo world, hallo peopple.
-  </h2>
-
+<div class="container">
+  <?= $this->getButton('regions', 'Bereiche') ?>
+  <?= $this->getTemplate('regionsSub', 'kmucms/regionsDist', ['regions' => $this->getValue('regions') ?? '']); ?>
+  <?= empty($this->getValue('regions')) ? '' : $this->getButton('regions', 'Bereiche') ?>
 </div>
+
+

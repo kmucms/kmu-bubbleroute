@@ -2,11 +2,11 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
-  RewriteCond /_runtime/web/%{REQUEST_FILENAME} -f  
+  RewriteCond %{DOCUMENT_ROOT}/_runtime/web/%{REQUEST_URI} -f  
   RewriteCond %{REQUEST_FILENAME} !\.php$
   RewriteRule ^(.*)$ /_runtime/web/$1 [END,QSA]
 
-  RewriteCond /_files/web/%{REQUEST_FILENAME} -f  
+  RewriteCond %{DOCUMENT_ROOT}/_files/web/%{REQUEST_URI} -f
   RewriteCond %{REQUEST_FILENAME} !\.php$
   RewriteRule ^(.*)$ /_files/web/$1 [END,QSA]
 

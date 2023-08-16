@@ -4,19 +4,27 @@ session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-kmucms\config\Config::init(__DIR__ . '/_config.php');
+$uri = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+$uriParts = explode('/', $uri);
 
-/*
-$request = ClassRequest::getInstance();
+if (($uriParts[1] ?? '') == 'service') {
+    $request = new \kmucms\routing\BubbleRequest(\kmucms\App::getInstance()->getPaths()->getPhp() . '/web/');
 
-if($request->hasFoundController()){
-  (new ClassRequest)->echoPage($request->getClass(), $request->getMethod(), $request->getParameter());
-}
- * 
- */
+    \kmucms\App::getInstance()->setup('urlinfo', $request);
 
-$request = \kmucms\routing\BubbleRequest::getInstance();
+    if ($request->hasFoundController()) {
+        (new \kmucms\uipages\PageWeb(trim(substr($request->getScript(), 0, -4), '/'), [], \kmucms\App::getInstance()->getPaths()->getPhp(), kmucms\App::getInstance()->getDb()))->echoPage();
+    }
+} else {
+    //optimierbar
+    $request = new \kmucms\routing\BubbleRequest(\kmucms\App::getInstance()->getPaths()->getPhp() . '/web/');
+    \kmucms\App::getInstance()->setup('urlinfo', $request);
 
-if($request->hasFoundController()){
-  (new \kmucms\uipages\PageWeb(trim(substr($request->getScript(), 0, -4), '/')))->echoPage();
+    (new \kmucms\uipages\PageWeb(
+            trim(substr($request->getScript(), 0, -4), '/'), //'index',
+            [],
+            \kmucms\App::getInstance()->getPaths()->getPhp(),
+            kmucms\App::getInstance()->getDb(),
+            ['requestUri'=>$_SERVER['REQUEST_URI']])
+    )->echoPage();
 }

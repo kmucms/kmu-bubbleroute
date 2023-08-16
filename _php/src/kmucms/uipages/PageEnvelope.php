@@ -8,7 +8,7 @@ class PageEnvelope extends common\APage{
 
   private $parentEnvelopeId = '';
 
-  public function setPageEnvelope(string $envelopeId = ''){
+  public function setEnvelope(string $envelopeId = ''){
     $this->parentEnvelopeId = $envelopeId;
   }
 

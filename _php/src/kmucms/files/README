@@ -1,7 +1,0 @@
-
-
-Wrapper to read and write files.
-Provide a file path and this path will be threated as own drive.
-
-
-

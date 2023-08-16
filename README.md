@@ -106,7 +106,7 @@ edit _php/web/test/index.php
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
 
-$this->setPageEnvelope('test');
+$this->setEnvelope('test');
 $this->setData('title', 'MyTestPage');
 ?>
 
@@ -119,7 +119,7 @@ if you create more pages, you can reuse the envelope and don't need to write hea
 you can forward data by $this->setData to envelope and retrife the data with $this->getData in the envelope.
 the content of the page is automatically added to $this->setData('content',...) part.
 
-if you change $this->setPageEnvelope('test'); to $this->setPageEnvelope('index'); you should see Hallo World in
+if you change $this->setEnvelope('test'); to $this->setEnvelope('index'); you should see Hallo World in
 the default envelope, you saw on the start page.
 
 
@@ -138,20 +138,20 @@ create a file: _php/webComponent/testComment.php
 </div>
 
 ```
-edit _php/web/test/index.php
+
 
 ```php
 
 <?php
 /** @var \kmucms\uipages\PageWeb $this */
 
-$this->setPageEnvelope('test');
+$this->setEnvelope('test');
 $this->setData('title', 'MyTestPage');
 ?>
 
 two dudes met on the street
-<?= $this->getComponent('testComment', ['persor'=>'Max','comment'=>"Hallo, how are u?"]?>
-<?= $this->getComponent('testComment', ['persor'=>'John','comment'=>"Hi, I'm fine."]?>
+<?= $this->getComponent('testComment', ['person'=>'Max','comment'=>"Hallo, how are u?"]?>
+<?= $this->getComponent('testComment', ['person'=>'John','comment'=>"Hi, I'm fine."]?>
 
 ```
 
